@@ -43,7 +43,7 @@ def tree_search(problem):
     while fringe:
         node = problem.remove_front(fringe) # pop
         print("traverse {0: <16}  g {1: >5} + h {2: >5}, depth {3}".format(
-            node.state, node.path_cost, problem.heuristic(node.state), node.depth))
+            "{}".format(node.state), node.path_cost, problem.heuristic(node.state), node.depth))
         if problem.goal_test(node.state) == True:
             print("found target {}".format(node.state))
             n = node
