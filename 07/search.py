@@ -15,7 +15,7 @@ def bsearch(n, data):
 
 def hsearch(n,data):
     h = n%10
-    if not hash_table.has_key(h):
+    if h not in hash_table.h:
         return False
     return lsearch(n, hash_table[h])
 
@@ -23,7 +23,7 @@ hash_table = {}
 def make_hash(num):
     for n in num:
         h = n%10
-        if not hash_table.has_key(h):
+        if h not in hash_table:
             hash_table[h] = []
         hash_table[h].append(n)
 make_hash(num)

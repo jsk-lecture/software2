@@ -25,7 +25,7 @@ def bubble_sort(num):
 
 def heap_add(num, c):
     while True:
-        p = (c-1)/2 # 親のインデックスを計算
+        p = (c-1)//2 # 親のインデックスを計算
         if p < 0 :
             break
         # 親の方が小さい場合はbreak
@@ -58,7 +58,7 @@ def heap_sort(num):
         num[0] = tmp
         heap_del(num, len(num)-1-i, 0)
     # 逆順にする
-    for i in range(len(num)/2):
+    for i in range(len(num)//2):
         tmp = num[i]
         num[i] = num[len(num)-i-1]
         num[len(num)-i-1] = tmp
@@ -90,7 +90,7 @@ def merge(num, left, right, size):
 
 def merge_sort_impl(num, left, right):
     if left < right :
-        middle = (right + left)/2
+        middle = (right + left)//2
         merge_sort_impl(num, left, middle)
         merge_sort_impl(num, middle+1, right)
         merge(num, left, middle+1, right-left+1)
@@ -99,7 +99,7 @@ def merge_sort(num):
     merge_sort_impl(num, 0, len(num)-1)
 
 def quick_sort_impl(num, first, last):
-    x = (num[first] + num[last])/2
+    x = (num[first] + num[last])//2
     i = first
     j = last
     while True:
@@ -123,10 +123,10 @@ def quick_sort(num):
 import time
 def run_sort(f):
     num = [random.randint(1,1000) for i in range(10000)]
-    start = time.clock()
+    start = time.perf_counter()
     # call function
     f(num)
-    elapsed_time = time.clock() - start
+    elapsed_time = time.perf_counter() - start
     print("%20s : elapsed time %f [sec]"%(f.__name__, elapsed_time))
 
 
@@ -152,10 +152,10 @@ def output_rand(length):
 
 def run_sort(f):
     num = eval(open('rand.txt','r').read())
-    start = time.clock()
+    start = time.perf_counter()
     # call function
     f(num)
-    elapsed_time = time.clock() - start
+    elapsed_time = time.perf_counter() - start
     print("%20s : elapsed time %f [sec]"%(f.__name__, elapsed_time))
 
 output_rand(10000)
