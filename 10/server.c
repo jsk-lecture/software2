@@ -63,7 +63,7 @@ int main ()
   printf("recv (%d) [%s]\n", size, buf);
 
   // データを送信する
-  char buf2[256];
+  char buf2[256+13];
   sprintf(buf2, "Received '%s'!", buf);
   size = write (ns, buf2, strlen(buf2));
   printf ("send (%d) [%s]\n", size, buf2);
