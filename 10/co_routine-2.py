@@ -10,8 +10,8 @@ def loop(n):
 
 l1 = loop(10)
 l2 = loop(10)
-l1.next();
-l2.next();
+next(l1)  # l1.next();
+next(l2)  # l2.next();
 for i in range(9):
     l1.send("name1")
     l2.send("name2")

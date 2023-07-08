@@ -10,5 +10,5 @@ def loop(n):
 l1 = loop(10)
 l2 = loop(10)
 for i in range(10):
-    l1.next()
-    l2.next()
+    next(l1)  # l1.next()
+    next(l2)  # l2.next()
