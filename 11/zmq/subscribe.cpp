@@ -1,26 +1,28 @@
-#include <zmqpp/zmqpp.hpp>
+#include <iostream>
+#include <string>
+#include <zmq.hpp>
 
 int main(int argc, char *argv[]) {
   // initialize the 0MQ context
-  zmqpp::context context;
+  zmq::context_t context(1);
 
   // generate a subscribe socket
-  zmqpp::socket socket (context, zmqpp::socket_type::subscribe);
+  zmq::socket_t socket (context, zmq::socket_type::sub);
 
   // bind to the socket
   std::cout << "Wait for Connecting" << std::endl;
-  socket.bind("tcp://*:5555");
+  socket.connect("tcp://localhost:5555");
 
   // set filter option "" means pass through
-  socket.subscribe("");
+  socket.set(zmq::sockopt::subscribe, "");
 
   while (1) {
     // receive the message
-    zmqpp::message message;
+    zmq::message_t message;
     // decompose the message
-    socket.receive(message);
-    std::string text;
-    message >> text;
+    auto ok = socket.recv(message, zmq::recv_flags::none);
+    if (!ok) continue;
+    std::string text(static_cast<char*>(message.data()), message.size());
     std::cout << "Received: " << text << std::endl;
   }
 }

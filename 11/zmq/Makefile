@@ -1,30 +1,30 @@
-all:
+all: subscribe publish add_two_client
 
 # sudo apt install libzmqpp-dev
 
 python:
-	xterm -hold -e 'set -x; ./publish.py' &
-	xterm -hold -e 'set -x; sleep 3; ./publish.py' &
-	xterm -hold -e 'set -x; ./subscribe.py'
+	xterm -e ./publish.py &
+	(sleep 3; xterm -e ./publish.py) &
+	./subscribe.py
 
 cpp: subscribe publish
-	xterm -hold -e 'set -x; ./publish' &
-	xterm -hold -e 'set -x; sleep 3; /publish' &
-	xterm -hold -e 'set -x; ./subscribe'
+	xterm -e ./publish &
+	(sleep 3; xterm -hold -e ./publish ) & ## this fails
+	./subscribe
 
 relay: add_two_client
-	xterm -hold -e 'set -x; ./add_two_server.py' &
-	xterm -hold -e 'set -x; while [ 1 ]; do ./add_two_client.py 1 2; sleep 2; done' &
-	xterm -hold -e 'set -x; while [ 1 ]; do ./add_two_client; sleep 3; done'
+	xterm -e ./add_two_server.py &
+	./add_two_client.py 1 2
+	./add_two_client
 
 subscribe: subscribe.cpp
-	g++ -o subscribe subscribe.cpp -lzmqpp -lzmq
+	g++ -o subscribe subscribe.cpp -lzmq
 
 publish: publish.cpp
-	g++ -o publish publish.cpp -lzmqpp -lzmq
+	g++ -o publish publish.cpp -lzmq
 
 add_two_client: add_two_client.cpp
-	g++ -o add_two_client add_two_client.cpp -lzmqpp -lzmq -ljsoncpp
+	g++ -o add_two_client add_two_client.cpp -lzmq -ljsoncpp
 
 clean:
 	rm -f subscribe publish add_two_client

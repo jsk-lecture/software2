@@ -12,7 +12,7 @@ socket = context.socket(zmq.SUB)
 socket.bind("tcp://*:5555")
 
 # set filter option "" means pass through
-socket.setsockopt(zmq.SUBSCRIBE, "")
+socket.setsockopt(zmq.SUBSCRIBE, "".encode('utf-8'))
 
 while True:
     #  Wait for next request from client

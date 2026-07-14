@@ -15,6 +15,6 @@ socket.connect("tcp://localhost:5555")
 for request in range(10):
     ss = "Hello World! {}".format(request)
     print("Sending: {}".format(ss))
-    socket.send(ss)
+    socket.send(ss.encode('utf-8'))
 
     time.sleep(1)

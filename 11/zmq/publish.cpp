@@ -1,16 +1,22 @@
-#include <zmqpp/zmqpp.hpp>
-#include <sstream>
+#include <iostream>
+#include <string>
+#include <chrono>
+#include <thread>
+#include <zmq.hpp>
 
 int main(int argc, char *argv[]) {
   // initialize the 0MQ context
-  zmqpp::context context;
+  zmq::context_t context(1);
 
   // generate a publish socket
-  zmqpp::socket socket (context, zmqpp::socket_type::publish);
+  zmq::socket_t socket (context, zmq::socket_type::pub);
 
   // open the connection
   std::cout << "Connecting to 5555" << std::endl;
-  socket.connect("tcp://localhost:5555");
+  socket.bind("tcp://*:5555");
+
+  // PUB/SUBでは接続直後のメッセージが落ちることがあるため少し待つ
+  std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
   int request_nbr;
   for (request_nbr = 0; request_nbr != 10; request_nbr++) {
@@ -20,8 +26,8 @@ int main(int argc, char *argv[]) {
     std::cout << "Sending: " << ss.str() << std::endl;
 
     // send a message
-    zmqpp::message message = ss.str();
-    socket.send(message);
+    std::string text = ss.str();
+    socket.send(zmq::buffer(text), zmq::send_flags::none);
 
     // wait for next loop
     std::this_thread::sleep_for(std::chrono::seconds(1));

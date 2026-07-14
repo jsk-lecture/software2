@@ -4,7 +4,7 @@ www:
 	netcat www.jsk.t.u-tokyo.ac.jp 80 < get.txt
 
 SystemProxy.txt:
-	xml-rpc-api2cpp http://gggeek.altervista.org/sw/xmlrpc/demo/server/server.php examples SystemProxy > SystemProxy.txt
+	xml-rpc-api2cpp http://tanoconsulting.com/sw/xmlrpc/demo/server/server.php examples SystemProxy > SystemProxy.txt
 
 SystemProxy.cc SystemProxy.h: SystemProxy.txt
 	sed '/^#endif/q' SystemProxy.txt > SystemProxy.h
@@ -18,14 +18,14 @@ python:
 	python example.py
 
 bash:
-	xmlrpc http://gggeek.altervista.org/sw/xmlrpc/demo/server/server.php system.listMethods
-	xmlrpc http://gggeek.altervista.org/sw/xmlrpc/demo/server/server.php system.methodSignature examples.addtwo
-	xmlrpc http://gggeek.altervista.org/sw/xmlrpc/demo/server/server.php examples.addtwo i/4 i/7
+	xmlrpc http://tanoconsulting.com/sw/xmlrpc/demo/server/server.php system.listMethods
+	xmlrpc http://tanoconsulting.com/sw/xmlrpc/demo/server/server.php system.methodSignature examples.addtwo
+	xmlrpc http://tanoconsulting.com/sw/xmlrpc/demo/server/server.php examples.addtwo i/4 i/7
 
-telnet: #http://gggeek.altervista.org/sw/xmlrpc/demo/server/server.php
-	netcat gggeek.altervista.org 80 < list-methods.txt
-	netcat gggeek.altervista.org 80 < list-signature.txt
-	netcat gggeek.altervista.org 80 < add-two.txt
+telnet: #http://tanoconsulting.com/sw/xmlrpc/demo/server/server.php
+	netcat tanoconsulting.com 80 < list-methods.txt
+	netcat tanoconsulting.com 80 < list-signature.txt
+	netcat tanoconsulting.com 80 < add-two.txt
 
 
 clean:

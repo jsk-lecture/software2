@@ -1,6 +1,6 @@
 POST /sw/xmlrpc/demo/server/server.php HTTP/1.0
 User-Agent: Frontier/5.1.2 (WinNT)
-Host: gggeek.altervista.org
+Host: tanoconsulting.com
 Content-Type: text/xml
 Content-length: 209
 

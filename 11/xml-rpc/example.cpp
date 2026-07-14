@@ -2,7 +2,7 @@
 
 int main (int argc, char **argv) {
   XmlRpcClient::Initialize("example", "0.1");
-  XmlRpcClient server ("http://gggeek.altervista.org/sw/xmlrpc/demo/server/server.php");
+  XmlRpcClient server ("http://tanoconsulting.com/sw/xmlrpc/demo/server/server.php");
 
   SystemProxy proxy = SystemProxy(server);
 
